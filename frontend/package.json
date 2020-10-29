@@ -1,0 +1,64 @@
+{
+  "name": "sbapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.2.5",
+    "@metamodules/postgres": "^1.2.1",
+    "apollo-link-context": "^1.0.20",
+    "deploy-node-app": "^1.4.3",
+    "dotenv": "^8.0.0",
+    "graphql": "^15.3.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1",
+    "babel-eslint": "10.0.1",
+    "cross-spawn": "^6.0.5",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-flowtype": "2.50.1",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "prettier": "^1.17.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "deploy-node-app": {
+    "prod": {
+      "port": 4000,
+      "protocol": "http",
+      "entrypoint": "src/api/index.js",
+      "type": "spa"
+    },
+    "dev": {
+      "port": 4000,
+      "protocol": "http",
+      "entrypoint": "src/api/index.js",
+      "registry": "",
+      "type": "spa",
+      "isPublic": false
+    }
+  },
+  "proxy": "http://localhost:4000"
+}
