@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const schema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -9,7 +9,20 @@ const schema = new mongoose.Schema({
   },
   passwordHash: {
     type: String,
+  },
+  folders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Folder'
+    }
+  ],
+})
+
+userSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    // the passwordHash should not be revealed
+    delete returnedObject.passwordHash
   }
 })
 
-module.exports = mongoose.model('User', schema)
+module.exports = mongoose.model('User', userSchema)
