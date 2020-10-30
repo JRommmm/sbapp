@@ -10,8 +10,9 @@ const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
 
 const bcrypt = require('bcrypt')
 
-const MONGODB_URI = 'mongodb+srv://fullstack1:12345@cluster0.ew0qx.mongodb.net/part8?retryWrites=true&w=majority'
-
+const configuration = require('./utilities/configurations')
+const MONGODB_URI = configuration.MONGODB_URI
+//
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(() => {
     console.log('connected to MongoDB')
@@ -19,8 +20,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,
   .catch((error) => {
     console.log('error connection to MongoDB:', error.message)
   })
-
-//Elsa is brave
 
 const typeDefs = gql`
   type Person {
