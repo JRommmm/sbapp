@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   folders: [
-    {
+    { // root of the problem in allFolders
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Folder'
     }

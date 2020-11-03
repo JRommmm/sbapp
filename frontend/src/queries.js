@@ -71,3 +71,19 @@ export const CREATEUSER = gql`
     }
   }
 `
+
+export const CREATEFOLDER = gql`
+  mutation addFolder($title: String!) {
+    addFolder(title: $title)  {
+      title
+    }
+  }
+`
+
+export const GETFOLDERS = gql`
+  query {
+    allFolders{
+      title
+    }
+  }
+`

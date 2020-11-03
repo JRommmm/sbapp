@@ -34,16 +34,21 @@ const App = () => {
 	if (!authToken){
 		return (
 		//console.log("not logged in")
-		<div><LoginForm
-		setToken={setToken}
-		setError={notify}
-		show={page === 'login'}
-		/>
-		</div> ) } else {
+		
+		<div>
+				<Notify errorMessage={errorMessage} />
+		<LoginForm
+			setToken={setToken}
+			setError={notify}
+			show={page === 'login'}
+			/>
+		</div> ) 
+	} else {
 		console.log("logged in");
 
 		return(
 			<div>
+				<Notify errorMessage={errorMessage} />
 		  <Router>
 			<div>
 			  <Link style={padding} to="/">Home</Link>
@@ -56,7 +61,7 @@ const App = () => {
 				<TestPage />
 			  </Route>
 			  <Route path="/">
-				<HomePage />
+				<HomePage setError={notify} />
 			  </Route>
 			</Switch>
 	  
@@ -69,6 +74,17 @@ const App = () => {
 		)
 	}
 }
+
+const Notify = ({errorMessage}) => {
+	if ( !errorMessage ) {
+	  return null
+	}
+	return (
+	  <div style={{color: 'red'}}>
+		{errorMessage}
+	  </div>
+	)
+  }
 
 export default App
 
