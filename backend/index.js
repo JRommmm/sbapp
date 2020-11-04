@@ -6,16 +6,16 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 const Folder = require('./models/Folder')
 
-const jwt = require('jsonwebtoken')
-const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
-
-const bcrypt = require('bcrypt')
-
 const configuration = require('./utilities/configurations')
 const logger = require('./utilities/logger')
 
-const MONGODB_URI = configuration.MONGODB_URI
+const jwt = require('jsonwebtoken')
+const JWT_SECRET = configuration.JWT_SECRET
 //
+const bcrypt = require('bcrypt')
+
+const MONGODB_URI = configuration.MONGODB_URI
+
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(() => {
     console.log('connected to MongoDB')
@@ -24,7 +24,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true,
     console.log('error connection to MongoDB:', error.message)
   })
 
-//global.resolver_logs =[]
+logger.resolvers("", "BEGIN")
 
 
 
@@ -88,47 +88,30 @@ const resolvers = {
       persons.find(p => p.name === args.name),
     allFolders: async (root, args, context) => { 
 
+        logger.resolvers("inside allFolders - allFolder-0", "Q_allFolders")
+        //console.log("inside allFolders");
 
-        console.log("inside allFolders");
         const currentUser = context.currentUser
-
         if (!currentUser) {
           throw new AuthenticationError("not authenticated")
         }
         //console.log("inside allFolders - authentication passed", currentUser);
-        //console.log("currentUser.username:", currentUser.username)
+        logger.resolvers("allFolder-1 - authentication passed", "Q_allFolders")
+
         try {
-          //gets us a result
-          // either adding a folder i wrong, or .populate is not working
-          //Possibility: in model/User the folder schema there
-          //Possibility: await
-
-          //userFolders = currentUser.folders <---    this returns something -------
-
-          //userFolders = currentUser.folders.populate('Folder')
-          //userFolders = currentUser.folders.map(folder => folder.populate('Folder'))   
-          //userFolders = currentUser.find({}).populate('Folder')
-
-          //userFolders = await currentUser.folders.populate('Folder')
-          //userFolders = await currentUser.find({}).populate('Folder')
-          //userFolders = await currentUser.folders.map(folder => folder.populate('Folder'))
-
-          //userFolders = await User.populate('Folder')
-
-          //userFolders = await User.findOne({ username: currentUser.username }).populate('Folders')
-
+          //see R1 in comments footer
           userFolders = await User.findOne({ username: currentUser.username }).populate({
             path: 'folders',
             model: 'Folder',
-          })
-          
+          })  
         } catch (error) {
           /*throw new UserInputError(error.message, {
             invalidArgs: args,
           })
           */
-         console.log(error, "retrieving folders failed. Need to handle this error")
+          console.log(error, "retrieving folders failed")
         }
+        logger.resolvers("allFolder-2 - userFolders retrieved - before return", "Q_allFolders")
         //console.log("inside allFolders - userFolders retrieved - before return", userFolders);
         //console.log("userFolders.folders:", userFolders.folders);
         return userFolders.folders
@@ -136,7 +119,9 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (root, args) => { 
-      console.log("enter createUser Mutation")
+      //console.log("enter createUser Mutation")
+      logger.resolvers("inside createUser Mutation", "M_createUser")
+
       const saltRounds = 10
       const passwordHash = await bcrypt.hash(args.password, saltRounds)
 
@@ -151,8 +136,9 @@ const resolvers = {
       
 	},
     login: async (root, args) => {
-      console.log("enter login mutation");
-      console.log("args.username:", args.username);
+
+      logger.resolvers("inside login mutation - login-0", "M_login")
+      //console.log("args.username:", args.username);
 
       //check user and password match <----
       const user = await User.findOne({ username: args.username })
@@ -160,19 +146,21 @@ const resolvers = {
       ? false
       : await bcrypt.compare(args.password, user.passwordHash)
       
-      console.log("login-1: check user and password match"); 
+      //console.log("login-1: check user and password match");
+      logger.resolvers("login-1: check user and password match", "M_login") 
       if (!(user && passwordCorrect)) {
           throw new UserInputError("wrong credentials")
         }
 
-
-      console.log("login-2: convert to web token"); //convert to web token
+      logger.resolvers("login-2: convert to web token", "M_login")  //convert to web token
+      //console.log("login-2: convert to web token"); 
 	    const userForToken = {
 	      username: user.username,
 	      id: user._id,
       }
       
-      console.log("login-3: return");
+      //console.log("login-3: return");
+      logger.resolvers("login-3: return", "M_login") 
 	    return { value: jwt.sign(userForToken, JWT_SECRET) }
       },
     addFolder: async (root, args, context) => { 
@@ -218,6 +206,34 @@ const server = new ApolloServer({
   }
 })
 
+//logger.resolvers("", "END")
+
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })
+
+
+/* COMMENTS FOOTER -----------------
+
+
+  R1
+          //gets us a result
+          // either adding a folder i wrong, or .populate is not working
+          //Possibility: in model/User the folder schema there
+          //Possibility: await
+
+          //userFolders = currentUser.folders <---    this returns something -------
+
+          //userFolders = currentUser.folders.populate('Folder')
+          //userFolders = currentUser.folders.map(folder => folder.populate('Folder'))   
+          //userFolders = currentUser.find({}).populate('Folder')
+
+          //userFolders = await currentUser.folders.populate('Folder')
+          //userFolders = await currentUser.find({}).populate('Folder')
+          //userFolders = await currentUser.folders.map(folder => folder.populate('Folder'))
+
+          //userFolders = await User.populate('Folder')
+
+          //userFolders = await User.findOne({ username: currentUser.username }).populate('Folders')
+
+*/

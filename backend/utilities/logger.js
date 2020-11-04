@@ -1,4 +1,24 @@
+const resolvers = (message, type, mute) => {
+    const Q_allFolders = 0
+    const M_createUser = 0
+    const M_login = 0
+    const M_addFolder = 0
 
+    if (( Q_allFolders || M_createUser || M_login || M_addFolder)&& type === "BEGIN"){
+        console.log("------Resolvers Info-------")
+    }
+
+    //console.log("entered resolver")
+    if (( Q_allFolders || M_createUser || M_login || M_addFolder) && (type !== "BEGIN" && type !== "END" )){
+        if (eval(type + " === 1") && !mute){
+            console.log(message)
+        }
+    }
+    if (( Q_allFolders || M_createUser || M_login || M_addFolder)&& type === "END"){
+        console.log("------Resolvers END-------")
+    }
+
+}
 
 const info = (message, type) => {
   
@@ -13,7 +33,7 @@ const error = (...params) => {
 }
 
 module.exports = {
-     info, error
+     resolvers, info, error
 }
 
 
