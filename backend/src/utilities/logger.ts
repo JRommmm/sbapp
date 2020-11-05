@@ -1,5 +1,5 @@
 const resolvers = (message, type, mute) => {
-    const Q_allFolders = 0
+    const Q_allFolders = 1
     const M_createUser = 0
     const M_login = 0
     const M_addFolder = 0

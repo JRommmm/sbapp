@@ -1,3 +1,4 @@
+export {}; //https://medium.com/@muravitskiy.mail/cannot-redeclare-block-scoped-variable-varname-how-to-fix-b1c3d9cc8206
 const { ApolloServer, UserInputError, gql, AuthenticationError } = require('apollo-server')
 const { v1: uuid } = require('uuid')
 
@@ -11,7 +12,7 @@ const logger = require('./utilities/logger')
 
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = configuration.JWT_SECRET
-//
+
 const bcrypt = require('bcrypt')
 
 const MONGODB_URI = configuration.MONGODB_URI
@@ -82,10 +83,7 @@ const resolvers = {
     me: (root, args, context) => { // use this query to identify current user!
     	return context.currentUser
     },  
-    personCount: () => persons.length,
-    allPersons: () => persons,
-    findPerson: (root, args) =>
-      persons.find(p => p.name === args.name),
+
     allFolders: async (root, args, context) => { 
 
         logger.resolvers("inside allFolders - allFolder-0", "Q_allFolders")
@@ -97,7 +95,7 @@ const resolvers = {
         }
         //console.log("inside allFolders - authentication passed", currentUser);
         logger.resolvers("allFolder-1 - authentication passed", "Q_allFolders")
-
+        var userFolders
         try {
           //see R1 in comments footer
           userFolders = await User.findOne({ username: currentUser.username }).populate({
@@ -110,12 +108,17 @@ const resolvers = {
           })
           */
           console.log(error, "retrieving folders failed")
+          //should throw error since "return userFolders.folders" will be invalid 
         }
         logger.resolvers("allFolder-2 - userFolders retrieved - before return", "Q_allFolders")
         //console.log("inside allFolders - userFolders retrieved - before return", userFolders);
         //console.log("userFolders.folders:", userFolders.folders);
         return userFolders.folders
     }
+    //personCount: () => persons.length,
+    //allPersons: () => persons,
+    //findPerson: (root, args) =>
+    //  persons.find(p => p.name === args.name),
   },
   Mutation: {
     createUser: async (root, args) => { 
