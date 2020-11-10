@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 
 import { gql, useQuery, useApolloClient } from '@apollo/client';
 
+
 const App = () => {
 	const [page, setPage] = useState('login')
 	const [token, setToken] = useState(null)
@@ -32,20 +33,17 @@ const App = () => {
 	const authToken = localStorage.getItem('user-token')
 
 	if (!authToken){
-		return (
-		//console.log("not logged in")
-		
+		return (	
 		<div>
-				<Notify errorMessage={errorMessage} />
+		<Notify errorMessage={errorMessage} />
 		<LoginForm
 			setToken={setToken}
 			setError={notify}
 			show={page === 'login'}
 			/>
-		</div> ) 
+		</div> 
+		) 
 	} else {
-		console.log("logged in");
-
 		return(
 			<div>
 				<Notify errorMessage={errorMessage} />
@@ -58,10 +56,10 @@ const App = () => {
 	  
 			<Switch>
 			  <Route path="/testpage">
-				<TestPage />
+				<TestPage show={page === 'test'} />
 			  </Route>
 			  <Route path="/">
-				<HomePage setError={notify} />
+				<HomePage setError={notify} show={page === 'home'} />
 			  </Route>
 			</Switch>
 	  
@@ -113,5 +111,86 @@ if (x) {
 } else {
 	console.log('false statement')
 }
+
+
+Typescript excercises:
+
+type arr = Array<string>
+
+const last = <T,>(arr: T[]): T => { //<T, > "is the generic type that can be passed into our function"
+	return arr[arr.length -1];
+}
+
+const l = last([1,2,3]);
+
+const l2 = last(['a', 'b', 'c']); 
+
+const makeArr = <X, Y>(x: X, y: Y): [X, Y] => {
+	return [x, y];
+}
+
+const v = makeArr(5, 6);
+const v2 = makeArr<string | null, number>(null, 6)
+
+const makeFullName = <T extends { firstName: string; lastName: string}>(obj: T) => {
+	return {
+		...obj,
+		fullName: obj.firstName + " " + obj.lastName
+	}
+}
+
+const v4 = makeFullName({firstName: 'bob',  lastName: "marley", age: 15});
+const v5 = makeFullName({another: 'bob',  lastName: "marley", age: 15});
+
+interface Tab<T> {
+	id: string,
+	position: number,
+	data: T
+}
+
+type NumberTab = Tab<number>
+type StringTab = Tab<string>
+
+interface Props {
+	name: string
+}
+
+const HW: React.FC<Props> = ({name}) => {
+	const [state] = useState<{ fullname: string | null}>({ fullname: ""});
+	state.fullname
+}
+
+interface FormProps<T> {
+	values: T
+	children: (values: T) => JSX.Element
+}
+
+const Form = <T extends {}>({ values, children}: FormProps<T>) => {
+	return children(values);
+}
+
+const App1: React.FC = () => {
+	return(
+		<div>
+			<Form<{ lastName: string | null}> values = {{lastName: 'bob'}}> 
+			{ (values) => (
+				<div>{values.lastName}</div>
+			)}
+				</Form>
+		</div>
+	)
+}
+
+
+
+
+
+
 */
+
+
+
+
+
+
 //^^^^^--------------------------------

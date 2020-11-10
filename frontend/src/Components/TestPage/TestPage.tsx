@@ -2,7 +2,8 @@ import React from 'react'
 import FormExample from './FormExample'
 import StateExample from './StateExample'
 
-const TestPage = () => {
+const TestPage = ({show}) => {
+
 	return(
 	  <div>
 	    <p>Hello world</p>

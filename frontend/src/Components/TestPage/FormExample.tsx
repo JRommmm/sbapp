@@ -4,7 +4,7 @@ import Note from './Note'
 const FormExample = () => {
 
 	//form with states example
-	const [notes, setNotes] = useState([])
+	const [notes, setNotes] = useState([] as any)
 	const [newNote, setNewNote] = useState('')
 
 
@@ -16,7 +16,8 @@ const FormExample = () => {
 		  important: Math.random() > 0.5,
 		  id: notes.length + 1,
 		}
-	  
+{/* 
+  //@ts-ignore */}	  
 		setNotes(notes.concat(noteObject))
 		setNewNote('')
 	  }

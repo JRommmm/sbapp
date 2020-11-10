@@ -4,7 +4,7 @@ import { CREATEFOLDER, GETFOLDERS } from '../queries'
 import Folder from './Folder'
 
 
-const Home = ({setError}) => {
+const Home = ({setError, show}) => {
 	const [title, setTitle] = useState('')
 	const [getfolderlist, folderlist] = useLazyQuery(GETFOLDERS) 
 	var finalfolderlist = []
@@ -15,36 +15,26 @@ const Home = ({setError}) => {
 
 	//const folderlist1 = useQuery(GETFOLDERS) //PLEASE NOTE 
 	
-	//console.log("folderlist", folderlist);
-
 	const [ addFolder, result ] = useMutation(CREATEFOLDER, {
-		onError: (error) => {
-		  setError(error.graphQLErrors[0].message)
-		}
-	  })
+		onError: ({ graphQLErrors, networkError }) => {
+			if (graphQLErrors[0])   
+			  setError(graphQLErrors[0].message)
+			else if (networkError)
+			   console.log(`[Network error]: ${networkError}`);
+			   setError("Network Error occured")
+				//setError(networkError)  <-- error
+		  }
+		})
 	const submitNewFolder = async (event) => {
 		event.preventDefault()
 	
 		await addFolder({ variables: { title } })
 		await getfolderlist()
 	  }
-	if (folderlist.loading)  {
-		//console.log("folderlist.loading triggered");
-		return <div>loading...</div>
-	  }
 
-
-
-	if (folderlist.data) {
-		//console.log("folderlist.data triggered");
-		//console.log("folderlist.data:", folderlist.data.allFolders);
-		finalfolderlist = folderlist.data.allFolders
-	} 
+	if (folderlist.loading)  { return <div>loading...</div> }
+	if (folderlist.data) { finalfolderlist = folderlist.data.allFolders } 
 	
-
-
-	//console.log("folderlist.data:", typeof(folderlist.data.allFolders));
-	//console.log("folderlist1.data:", typeof(folderlist1.data));
 	return(
 	  <div>
 	    <h3> Main App View (under construction) </h3>

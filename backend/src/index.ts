@@ -1,5 +1,6 @@
 export {}; //https://medium.com/@muravitskiy.mail/cannot-redeclare-block-scoped-variable-varname-how-to-fix-b1c3d9cc8206
 const { ApolloServer, UserInputError, gql, AuthenticationError } = require('apollo-server')
+const { ApolloError } = require("apollo-server-core")
 const { v1: uuid } = require('uuid')
 
 const mongoose = require('mongoose')
@@ -77,7 +78,8 @@ const typeDefs = gql`
     allFolders: [Folder]
   }
 `
-
+//you can now throw appollo erros like so
+//throw new ApolloError("not authenticated")
 const resolvers = {
   Query: {
     me: (root, args, context) => { // use this query to identify current user!
@@ -153,6 +155,7 @@ const resolvers = {
       logger.resolvers("login-1: check user and password match", "M_login") 
       if (!(user && passwordCorrect)) {
           throw new UserInputError("wrong credentials")
+          //throw new ApolloError("not authenticated")         
         }
 
       logger.resolvers("login-2: convert to web token", "M_login")  //convert to web token
