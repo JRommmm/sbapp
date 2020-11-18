@@ -1,9 +1,13 @@
+import React, { useState } from 'react'
 
-import React from 'react'
-
-const Folder = ({ folder }) => {
+const Folder = ({ folder, deleteFolder, updateFolder }) => {
+  const [newtitle, setNewTitle] = useState('')
   return (
-    <li>{folder.title}</li>
+    <li>{folder.title} 
+    <button onClick={(event) => deleteFolder(event, folder)}>delete</button>
+    <button onClick={(event) => updateFolder(event, folder, newtitle)}>update</button>
+    <input value={newtitle} onChange={({ target }) => setNewTitle(target.value)} />
+    </li>
   )
 }
 

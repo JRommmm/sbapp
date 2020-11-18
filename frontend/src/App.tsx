@@ -5,8 +5,9 @@ import LoginForm from './Components/Login'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 
 import { gql, useQuery, useApolloClient } from '@apollo/client';
+import { resolveModuleName } from 'typescript'
 
-
+//
 const App = () => {
 	const [page, setPage] = useState('login')
 	const [token, setToken] = useState(null)
@@ -18,71 +19,70 @@ const App = () => {
 		setTimeout(() => {
 		  setErrorMessage(null)
 		}, 5000)
-	  }
+	}
 
-	const padding = {
-		padding: 5
-	  }
+	const padding = { padding: 5 }
+	
+	const loginScreen = () => {
+		return (	
+			<div>
+			<Notify errorMessage={errorMessage} />
+			<LoginForm
+				setToken={setToken}
+				setError={notify}
+				show={page === 'login'}
+				/>
+			</div> 
+	) }
 	
 	const logout = () => {
+
+		
 		setToken(null)
 		localStorage.clear()
 		client.resetStore()
-	  }
+		setPage('login')
+		return loginScreen()
+
+	}
 
 	const authToken = localStorage.getItem('user-token')
 
 	if (!authToken){
-		return (	
-		<div>
-		<Notify errorMessage={errorMessage} />
-		<LoginForm
-			setToken={setToken}
-			setError={notify}
-			show={page === 'login'}
-			/>
-		</div> 
-		) 
+		return loginScreen()
 	} else {
 		return(
-			<div>
-				<Notify errorMessage={errorMessage} />
+		<div>
+		  <Notify errorMessage={errorMessage} />
 		  <Router>
 			<div>
 			  <Link style={padding} to="/">Home</Link>
 			  <Link style={padding} to="/testpage">Test Page</Link>
 			  <button onClick={() => logout()}>logout</button>
 			</div>
-	  
+  
 			<Switch>
-			  <Route path="/testpage">
-				<TestPage show={page === 'test'} />
+
+			  <Route path="/testpage" > 
+				<TestPage show={page === 'test'}/> 
 			  </Route>
 			  <Route path="/">
-				<HomePage setError={notify} show={page === 'home'} />
+				<HomePage setError={notify} show={page === 'home'}/>
 			  </Route>
 			</Switch>
-	  
 		  </Router>
-	
-	
-	
-			</div>
-	
+		</div>
 		)
 	}
 }
+//show={page === 'test'}
+//show={page === 'home'}
+//show={page === 'login'}
 
 const Notify = ({errorMessage}) => {
-	if ( !errorMessage ) {
-	  return null
-	}
-	return (
-	  <div style={{color: 'red'}}>
-		{errorMessage}
-	  </div>
-	)
-  }
+	if ( !errorMessage ) { return null }
+	return ( <div style={{color: 'red'}}> {errorMessage} </div> )
+}
 
 export default App
 

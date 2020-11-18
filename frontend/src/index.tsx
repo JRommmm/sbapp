@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Router, Redirect } from "react-router-dom"
 import App from './App'
+import LoginForm from './Components/Login'
+import browserHistory from './browserHistory'
 
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, ApolloLink} from '@apollo/client'
 import { onError } from "apollo-link-error";
 
 import { setContext } from '@apollo/link-context'
 
+
+//
 //https://www.apollographql.com/docs/react/networking/basic-http-networking/
 //You can specify the names and values of custom headers to include in every HTTP 
 //request to a GraphQL server. To do so, provide the headers parameter to the ApolloClient constructor:
@@ -23,10 +28,14 @@ const authLink: ApolloLink = setContext((_, { headers }) => {
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   console.log("in higher order");  
   if (graphQLErrors){ 
-    console.log("graphQLErrors in high order error:", graphQLErrors); 
+    //console.log("graphQLErrors in high order error:", graphQLErrors); 
     graphQLErrors.map(({ message }) => {
       console.log("HO message:", message); // if statements for specific graphql errors, u can handle them at a global level
-      if (message.includes("not authenticated")){ console.log("HO message - inside includes not authenticated:", message)}
+      if (message.includes("not authenticated")){ 
+        console.log("HO message - inside includes not authenticated:", message)
+        browserHistory.push("/login", { errors: graphQLErrors })
+        //having trouble rerouting
+      }
       if (message.includes("wrong credentials")){ console.log("HO message - inside includes wrong credentials:", message);}
     //setError(graphQLErrors[0].message) // local error handling
     //throw new ApolloError("not authenticated") // higher error handling <-- this error goes in the backend!
@@ -57,8 +66,10 @@ const client = new ApolloClient({
 
 
 ReactDOM.render( 
-    <ApolloProvider client={client}> 
-    <App /> 
+    <ApolloProvider client={client}>
+    <Router history={browserHistory}>
+    <App />
+    </Router>
     </ApolloProvider>, document.getElementById('root'))
 
 

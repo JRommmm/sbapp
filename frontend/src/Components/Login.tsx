@@ -5,7 +5,7 @@ import { ApolloError } from "apollo-server-core"
 import { LOGIN, CREATEUSER } from '../queries'
 import { GraphQLError } from 'graphql'
 
-const LoginForm = ({ setError, setToken, show }) => {
+const LoginForm = ({ setError, setToken, show}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 

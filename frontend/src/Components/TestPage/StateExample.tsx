@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+//
 const StateExample = () => {
 	//state example
 	const [ counter, setCounter ] = useState(0)
@@ -7,17 +7,13 @@ const StateExample = () => {
 	return(
 	  <div>
 	    <h3> Component rendering using States: </h3>
-
 	    <div>{counter}</div>
         <button onClick={() => setCounter(counter + 1)}>
           plus
         </button>
         <button onClick={() => setCounter(0)}> 
           zero
-        </button>
-
-
-		
+        </button>	
 		</div>
 	)
 }
