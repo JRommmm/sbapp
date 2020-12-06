@@ -7,6 +7,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import { gql, useQuery, useApolloClient } from '@apollo/client';
 import { resolveModuleName } from 'typescript'
 
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 //
 const App = () => {
 	const [page, setPage] = useState('login')
@@ -64,7 +67,9 @@ const App = () => {
 			<Switch>
 
 			  <Route path="/testpage" > 
-				<TestPage show={page === 'test'}/> 
+			  	<DndProvider backend={HTML5Backend}>  
+				<TestPage show={page === 'test'}/>
+				</DndProvider> 
 			  </Route>
 			  <Route path="/">
 				<HomePage setError={notify} show={page === 'home'}/>

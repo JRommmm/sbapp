@@ -9,6 +9,9 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, ApolloLink} from
 import { onError } from "apollo-link-error";
 
 import { setContext } from '@apollo/link-context'
+//import { ChakraProvider } from "@chakra-ui/react"
+import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 
 //
@@ -34,7 +37,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       if (message.includes("not authenticated")){ 
         console.log("HO message - inside includes not authenticated:", message)
         browserHistory.push("/login", { errors: graphQLErrors })
-        //having trouble rerouting
+        window.location.reload(); //having trouble rerouting, temporary fix (forces refresh)
       }
       if (message.includes("wrong credentials")){ console.log("HO message - inside includes wrong credentials:", message);}
     //setError(graphQLErrors[0].message) // local error handling
@@ -68,7 +71,7 @@ const client = new ApolloClient({
 ReactDOM.render( 
     <ApolloProvider client={client}>
     <Router history={browserHistory}>
-    <App />
+      <App />
     </Router>
     </ApolloProvider>, document.getElementById('root'))
 
