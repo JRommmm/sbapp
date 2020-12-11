@@ -1,6 +1,8 @@
 import React, { createContext, useState } from 'react'
 import HomePage from './Components/Home'
 import TestPage from './Components/TestPage/TestPage'
+import TestPage2 from './Components/TestPage/TestPage2'
+import TestPage3 from './Components/TestPage/TestPage3'
 import LoginForm from './Components/Login'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 
@@ -61,17 +63,33 @@ const App = () => {
 			<div>
 			  <Link style={padding} to="/">Home</Link>
 			  <Link style={padding} to="/testpage">Test Page</Link>
+			  <Link style={padding} to="/testpage2">Test Page 2</Link>
+			  <Link style={padding} to="/testpage3">Test Page 3</Link>
 			  <button onClick={() => logout()}>logout</button>
 			</div>
   
 			<Switch>
-
+			  <Route path="/testpage3" > 
+			  	<DndProvider backend={HTML5Backend}>  
+				  {/* 
+  //@ts-ignore */}	  
+				<TestPage3 setError={notify} show={page === 'test'}/>
+				</DndProvider> 
+		
+			  </Route>
+			  <Route path="/testpage2" > 
+			  	<DndProvider backend={HTML5Backend}>  
+				<TestPage2 show={page === 'test'}/>
+				</DndProvider> 
+			  </Route>
 			  <Route path="/testpage" > 
 			  	<DndProvider backend={HTML5Backend}>  
 				<TestPage show={page === 'test'}/>
 				</DndProvider> 
 			  </Route>
 			  <Route path="/">
+				  {/* 
+  //@ts-ignore */}	  
 				<HomePage setError={notify} show={page === 'home'}/>
 			  </Route>
 			</Switch>

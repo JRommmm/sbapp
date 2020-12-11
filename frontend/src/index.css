@@ -1,10 +1,102 @@
-.note {
-  color: grey;
-  padding-top: 5px;
-  font-size: 15px;
+.nav-main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    left:0;
+    right:0; 
+    max-height: 300px;
+    position:absolute;
+    border-top: 1px solid rgb(124, 124, 124);
+    border-bottom: 1px solid rgb(124, 124, 124);
+  }
+.nav-main__margin{
+    margin-top: 15px;
+}
+.nav-folder{
+    background-color: rgb(204, 204, 204);
+    border-right: 2px solid grey;
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.nav-folder__folder{
+    display: block;
+    height: 20px;
+    overflow: hidden;
+    min-width: 200px;
+}
+.nav-folder__sub-button{
+    background: rgb(204, 204, 204);
+    border: none;
+ }
+ .nav-folder__folder-nosubs{
+    margin-left: 23px;
+ }
+ .nav-folder__ul{
+    list-style-type: none;
+    padding: 0;
+    margin-left: 23px;
+ }
+.nav-link{
+    margin-left: 5px;
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.nav-link__link{
+    display: block;
+    height: 50px;
+    overflow: hidden;
+}
+.nav-text__text{
+    resize: none;
+    height: 100%;
+    width: 100%;
+}
+.nav-text{
+    flex-grow: 4;
+    align-items: stretch;
+    padding: 10px;
+    margin-left: 5px;
+    max-height:300px
 }
 
-.testFdRow {
+
+
+#container {
+    border: 1px solid black;
+    padding: 15px;
+ }
+ 
+ #top-section {
+   border-bottom: 1px solid red;
+ }
+ 
+ #expand-container {
+   overflow: hidden;
+ }
+ 
+ #expand-contract {
+   border-bottom: 1px solid rgb(119, 117, 117);
+   margin-top: -100%;
+   transition: all 0.5s;
+ }
+ 
+ #expand-contract.expanded {
+    background-color: rgb(204, 204, 204);
+    margin-top: 0;
+    margin-left: 40px;
+ }
+
+
+
+ .d-flex{
+    display: flex
+ }
+
+ .testFdRow {
     border: 3px solid red;
 }
 
@@ -15,23 +107,3 @@
 .testFdCont{
     border: 1px dotted green
 }
-
-.FdCol{
-    margin-top: 10px;
-}
-
-
-.parent{
-    position:relative;
-}
-  
-.leftChild{
-    left:0; 
-    position:absolute;
-  }
-
-.flexContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap
-  }

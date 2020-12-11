@@ -1,14 +1,9 @@
 import React, {useState} from 'react'
-import FormExample from './FormExample'
-import StateExample from './StateExample'
+import FormExample from './Temp/FormExample'
+import StateExample from './Temp/StateExample'
 
-/*
-import SplitPane from 'react-split-pane'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-*/
-//import '../../index.css'
+import EditableText from './Protos/EditableText'
+import '../../index.css'
 
 //import Container from 'react-bootstrap/Container'
 ///import Row from 'react-bootstrap/Row'
@@ -19,12 +14,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 
-
 //import Example from './Example'
-
-import EditableText from './EditableText'
-
-import '../../index.css'
 
 const TestPage = ({show}) => {
 	const [open, setOpen] = useState(false);
@@ -41,35 +31,34 @@ const TestPage = ({show}) => {
 	}
 
 	//<div className="row-xs-3 row-sm-3 row-md-3 row-lg-3 testFdRow">
+	//d-none d-md-block
+	//Folder not resizing - maybe due to size of EditableText component
+	// problem: multiple css class in one div. Eventually you should combine the appropriate ones
 	return(
-	  <div>
+	  <div className="mainMargin">
 
 
-				<div className=" testFdCont leftChild flexContainer">
-					<div className="testFdRow flexContainer">
-						<div className="d-none d-md-block col-md-3 col-lg-3 testFdCol ">
-							<div className="testFdRow"> 
+				<div className=" testFdCont leftChild ">
+					<div className="row testFdRow flexContainer">
+						<div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 folderBackground">
+							<div className="row-xs-3 row-sm-3 row-md-3 row-lg-3 testFdRow">
 							<EditableText text={text1} outerTextFunction={outerTextChange} />
+							</div>
+							<div className="row-xs-3 row-sm-3 row-md-3 row-lg-3 testFdRow"> 
+							<EditableText text={text1} outerTextFunction={outerTextChange} />
+							</div>
+						</div>
+						<div className=" colBorder colMargin "></div>
+						<div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 testFdCol colMargin">
+							<div className="testFdRow"> 
+							Notes notes notes notes notes notes notes <p> Notes notes notes notes notes notes notes</p>
 							</div>
 							<div className=" testFdRow"> 
-							<EditableText text={text1} outerTextFunction={outerTextChange} />
+							Notes
 							</div>
 						</div>
 
-						<div className="col-xs-3 col-sm-3 col-md-3 col-lg-3 testFdCol">
-								<Table striped bordered hover size="sm">
-							<thead>
-								<tr><th>Notes</th></tr>
-							</thead>
-							<tbody>
-								<tr><td>Note Notes</td></tr>
-								<tr><td>Life stuff</td></tr>
-								<tr><td>Larry the Bird</td></tr>
-							</tbody>
-							</Table>
-						</div>
-
-						<div className="col-xs-9 col-sm-9 col-md-6 col-lg-6 testFdCol">
+						<div className="col-xs-9 col-sm-9 col-md-6 col-lg-6 testFdCol colMargin">
 						3 of 31 of 31 of 31 of 31 of 31 of 3f 31 of 31 of 31 of 31 of 3f 31 of 31 of 31 of 31 of 3
 						3 of 31 of 31 of 31 of 31 of 31 of 3f 31 of 31 of 31 of 31 of 3f 31 of 31 of 31 of 31 of 3
 						</div>
@@ -82,6 +71,19 @@ const TestPage = ({show}) => {
 }
 
 export default TestPage
+
+/*
+<Table striped bordered hover size="sm">
+<thead>
+	<tr><th>Notes</th></tr>
+</thead>
+<tbody>
+	<tr><td>Note Notes</td></tr>
+	<tr><td>Life stuff</td></tr>
+	<tr><td>Larry the Bird</td></tr>
+</tbody>
+</Table>
+*/
 
 //{/<div className="row-xs-3 row-sm-3 row-md-3 row-lg-3 testFdRow">/}
 
@@ -321,4 +323,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react"
 import { StringDecoder } from 'string_decoder'
+*/
+
+
+/*
+import SplitPane from 'react-split-pane'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 */

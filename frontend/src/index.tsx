@@ -9,9 +9,8 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, ApolloLink} from
 import { onError } from "apollo-link-error";
 
 import { setContext } from '@apollo/link-context'
-//import { ChakraProvider } from "@chakra-ui/react"
-import 'bootstrap/dist/css/bootstrap.min.css';
-//import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 //
@@ -95,3 +94,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
 )
 */
+
+
+//import { ChakraProvider } from "@chakra-ui/react"
+//import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
