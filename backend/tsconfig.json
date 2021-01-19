@@ -2,7 +2,9 @@
     "compilerOptions": {
       "outDir": "./build",
       "allowJs": true,
-      "target": "es5"
+      "target": "es5",
+      "types": ["jest", "node"],
+      "lib": ["es6"]
     },
     "include": ["./src/**/*"]
 }

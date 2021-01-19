@@ -84,7 +84,7 @@ const App = () => {
 			  </Route>
 			  <Route path="/testpage" > 
 			  	<DndProvider backend={HTML5Backend}>  
-				<TestPage show={page === 'test'}/>
+				<TestPage setError={notify} show={page === 'test'}/>
 				</DndProvider> 
 			  </Route>
 			  <Route path="/">

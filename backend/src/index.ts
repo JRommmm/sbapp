@@ -18,7 +18,7 @@ const bcrypt = require('bcrypt')
 
 const { merge } = require('lodash');
 
-import { typeDefs as FolderDefs, resolvers as FolderResolvers } from './resolvers/folder.js';
+import { typeDefs as FolderDefs, resolvers as FolderResolvers } from './resolvers/folder'; 
 
 const MONGODB_URI = configuration.MONGODB_URI
 
@@ -66,7 +66,7 @@ const resolvers = {
   Query: {
     me: (root, args, context) => { // use this query to identify current user!
     	return context.currentUser
-    },  
+    }, 
   },
   Mutation: {
     createUser: async (root, args) => { 
@@ -103,6 +103,26 @@ const resolvers = {
   }
 }
 
+
+
+export const testServer = new ApolloServer({
+  typeDefs: [typeDefs, FolderDefs],
+  resolvers: merge(resolvers, FolderResolvers),
+  context: async ({ req }) => {
+    const currentUser = await User.findById('6001050f101a721f96cdffbd')
+    return {currentUser}
+    /*
+    { folders: [],
+    _id: '6001050f101a721f96cdffbd',
+    username: '99999',
+    passwordHash:"$2b$10$8UTFmkORNOZGjUZhnjaFvOyqsfSGkoZEdhoOBPNQmqmk8gdiKP/WG",
+    __v: 0 }
+    */
+   
+  }
+})
+
+
 const server = new ApolloServer({
   typeDefs: [typeDefs, FolderDefs],
   resolvers: merge(resolvers, FolderResolvers),
@@ -110,18 +130,42 @@ const server = new ApolloServer({
     //console.log("inside context");
     //console.log(req.headers.authorization); //decodes the token to give current user info
     const auth = req ? req.headers.authorization : null
+    //const alternative = "alternative"
     if (auth && auth.toLowerCase().startsWith('bearer ')) {
       const decodedToken = jwt.verify(
         auth.substring(7), JWT_SECRET
       )
       const currentUser = await User.findById(decodedToken.id)
-      //console.log(currentUser)
-      return { currentUser }
+      //console.log("currentUser", currentUser)
+      return { currentUser/*, alternative*/ }
     }
   }
 })
 
 //logger.resolvers("", "END")
+if (process.env.NODE_ENV !== 'test'){
+  server.listen().then(({ url }) => {
+    console.log(`Server ready at ${url}`)
+  })
+}
+/*
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })
+*/
+
+
+
+
+export const testTypeDefs = typeDefs
+export const testResolvers = resolvers
+
+
+module.exports = {
+  typeDefs,
+  resolvers,
+  ApolloServer,
+  server, 
+  FolderDefs,
+  testServer
+};

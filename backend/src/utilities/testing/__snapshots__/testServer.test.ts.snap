@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server - e2e e2e init test 1`] = `
+Object {
+  "data": Object {
+    "createUser": Object {
+      "username": "99999",
+    },
+  },
+}
+`;
+
+exports[`Server - e2e e2e login and run test 1`] = `
+Object {
+  "data": Object {
+    "login": Object {
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ijk5OTk5IiwiaWQiOiI2MDAxMDUwZjEwMWE3MjFmOTZjZGZmYmQiLCJpYXQiOjE2MTA3NTY2NzF9.7h4Ay_CX6zT1ViHT6yzJYFk72eG1YtBau_yVu63hy4c",
+    },
+  },
+}
+`;
+
+exports[`Server - e2e e2e login and run test1 1`] = `
+Object {
+  "data": Object {
+    "addFolder": null,
+  },
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "UNAUTHENTICATED",
+      },
+      "locations": Array [
+        Object {
+          "column": 3,
+          "line": 2,
+        },
+      ],
+      "message": "not authenticated",
+      "path": Array [
+        "addFolder",
+      ],
+    },
+  ],
+}
+`;

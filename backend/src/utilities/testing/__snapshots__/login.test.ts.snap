@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server - e2e e2e init test 1`] = `
+Object {
+  "data": Object {
+    "createUser": null,
+  },
+  "errors": Array [
+    Object {
+      "extensions": Object {
+        "code": "BAD_USER_INPUT",
+        "exception": Object {
+          "invalidArgs": Object {
+            "password": "12345",
+            "username": "99999",
+          },
+        },
+        "invalidArgs": Object {
+          "password": "12345",
+          "username": "99999",
+        },
+      },
+      "locations": Array [
+        Object {
+          "column": 3,
+          "line": 2,
+        },
+      ],
+      "message": "E11000 duplicate key error collection: blog1-test.users index: username_1 dup key: { username: \\"99999\\" }",
+      "path": Array [
+        "createUser",
+      ],
+    },
+  ],
+}
+`;

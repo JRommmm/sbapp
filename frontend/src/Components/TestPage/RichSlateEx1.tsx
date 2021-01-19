@@ -10,7 +10,7 @@ import {
 } from 'slate'
 import { withHistory } from 'slate-history'
 
-import { Button, Icon, Toolbar } from './slatecomp'
+import { Button, Icon, Toolbar } from './Protos/archives/slatecomp'
 
 const HOTKEYS = {
   'mod+b': 'bold',

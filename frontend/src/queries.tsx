@@ -29,6 +29,47 @@ export const GETFOLDERS = gql`
     allFolders{
       title
       id
+      user{
+        username
+      }
+      rootFolder
+      generation
+      folders{
+        title
+        id
+        user{
+          username
+        }
+        rootFolder
+        generation
+        folders{
+          title
+          id
+          user{
+            username
+          }
+          rootFolder
+          generation
+          folders{
+            title
+            id
+            user{
+              username
+            }
+            rootFolder
+            generation
+            folders{
+              title
+              id
+              user{
+                username
+              }
+              rootFolder
+              generation
+            }
+          }
+        }
+      }
     }
   }
 `
@@ -45,6 +86,14 @@ mutation deleteFolder($id: String!) {
 export const UPDATEFOLDER = gql`
 mutation editFolderTitle($id: String!, $title: String!) {
   editFolderTitle(id: $id, title: $title)  {
+    id
+  }
+}
+`
+
+export const MOVEFOLDER = gql`
+mutation moveFolder($parentFolder: String!, $folder: String!){
+  moveFolder(parentFolder: $parentFolder, folder: $folder) {
     id
   }
 }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import { useMutation, useLazyQuery, useQuery } from '@apollo/client'
-import { CREATEFOLDER, GETFOLDERS, DELETEFOLDER, UPDATEFOLDER } from '../../queries'
+import { CREATEFOLDER, GETFOLDERS, DELETEFOLDER, UPDATEFOLDER, LOGIN } from '../../queries'
 import Folder from '../Folder'
 
 import EditableText from './Protos/EditableText'
@@ -9,9 +9,10 @@ import EditableText1 from './Protos/EditableText1'
 import EditableText2 from './Protos/EditableText2'
 import EditableText21 from './EditableText21'
 import LinkDisplay from './LinkDisplay'
-import '../../index.css'
+import '../../indexTest.css'
 
 import RichEditorExample from './RichSlateEx1'
+import FolderCollapsable from './FolderCollapsable'
 
 
 const TestPage3 = ({show, setError}) => {
@@ -52,11 +53,20 @@ const TestPage3 = ({show, setError}) => {
 	}
 	 if (folderlist.loading)  { return <div>loading...</div> }
 	 if (folderlist.data) { finalfolderlist = folderlist.data.allFolders }
-	 console.log(finalfolderlist);
+	 console.log("finalfolderlist", finalfolderlist);
+	 //@ts-ignore 
+	 console.log("finalfolderlist[0]", finalfolderlist[0]);
+	 //@ts-ignore 
+	 console.log("finalfolderlist[0].folders[0]", finalfolderlist[0].folders[0]);
+	 	 //@ts-ignore 
+		  console.log("finalfolderlist[0].folders.length", finalfolderlist[0].folders.length);
+	 //@ts-ignore 
+	 //console.log(finalfolderlist[0].folders[0].toString());
+	 
 	  
 	return(
 	<div>
-		Test Page 3
+		<div className="nav-folder__folder" tabIndex={1} >Test Page 3 </div>
 	  <div className="nav-main__margin">
 		 
 
@@ -66,9 +76,44 @@ const TestPage3 = ({show, setError}) => {
 			<div className="nav-folder ">
 				
 				<ul className="nav-folder__ul">
-					{finalfolderlist.map((folder, i) => 
-					<div className=" nav-folder__folder">
-					<EditableText21 key={i} folder={folder} outerTextFunction={outerTextChange} updateFolder={updateFolder} /></div> )}
+					{finalfolderlist.map((folder, i) => {
+						{/* 
+  //@ts-ignore */}	
+  						if (folder.rootFolder){
+							  {/* 
+  //@ts-ignore */}	
+							  console.log("in folder loop", folder.folders)
+							  							  {/* 
+  //@ts-ignore */}	
+  console.log("in folder loop", folder.folders.length)
+							  {/* 
+  //@ts-ignore */}
+							if (folder.folders.length > 0){
+								return(
+									<div className=" nav-folder__folder " tabIndex={i}>
+								<FolderCollapsable key={i} folder={folder} updateFolder={updateFolder} setError={setError} />
+									</div>
+								)
+
+								return(
+									<div className=" nav-folder__folder " tabIndex={i}>
+									<div className=" nav-folder__folder__main  " tabIndex={i}>
+								<EditableText21 key={i} folder={folder}  updateFolder={updateFolder} setError={setError} /></div>
+								<div className="nav-folder__folder__options-button"> <button> B </button></div>
+								</div>
+								)
+							} else {
+								return(
+									<div className=" nav-folder__folder " tabIndex={i}>
+									<div className=" nav-folder__folder__main  " tabIndex={i}>
+								<EditableText21 key={i} folder={folder} updateFolder={updateFolder} setError={setError} /></div>
+								<div className="nav-folder__folder__options-button"> <button> B </button></div>
+								</div>
+								)
+							}
+						}
+					   } 
+					)}
 				</ul>
 				
 				<div className=" nav-folder__folder d-flex">
@@ -88,7 +133,7 @@ const TestPage3 = ({show, setError}) => {
 			</div>
 			<div className=" nav-link">
 				<div className=" nav-link__link"> 
-				<LinkDisplay text={text1} outerTextFunction={outerTextChange} />
+				<LinkDisplay text={text1}  />
 				</div>
 				<div><hr></hr></div>
 				<div className="nav-link__link"> 

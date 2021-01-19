@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
-import FormExample from './Temp/FormExample'
-import StateExample from './Temp/StateExample'
+import FormExample from './Protos/Temp/FormExample'
+import StateExample from './Protos/Temp/StateExample'
 
 import EditableText from './Protos/EditableText'
 import EditableText1 from './Protos/EditableText1'
 import EditableText2 from './Protos/EditableText2'
 import LinkDisplay from './LinkDisplay'
-import '../../index.css'
+import '../../indexTest.css'
 
-import {Editor, EditorState} from 'draft-js';
-import 'draft-js/dist/Draft.css';
+//import {Editor, EditorState} from './Protos/Temp/node_modules/draft-js';
+//import './Protos/Temp/node_modules/draft-js/dist/Draft.css';
 
 import RichEditorExample from './RichSlateEx1'
 
@@ -89,7 +89,7 @@ const TestPage2 = ({show}) => {
 						</div>
 						<div className=" colMargin scrollNotes">
 							<div className=" maxHeight"> 
-							<LinkDisplay text={text1} outerTextFunction={outerTextChange} />
+							<LinkDisplay text={text1} />
 							</div>
 							<div><hr></hr></div>
 							<div className="maxHeight"> 

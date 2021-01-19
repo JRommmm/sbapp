@@ -7,7 +7,7 @@ const ItemTypes = {
     FOLDER: 'folder'
   }
 
-const LinkDisplay = (props: {text, outerTextFunction}) => {
+const LinkDisplay = (props: {text}) => {
 	//state example
     //const [ clicked, setClicked ] = useState(false)
     const [textField, setTextField] = useState(props.text)

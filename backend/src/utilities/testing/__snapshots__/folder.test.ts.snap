@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basic Folder Functions - integration tests Create Folder - 1 1`] = `
+Object {
+  "data": Object {
+    "addFolder": Object {
+      "title": "99999",
+    },
+  },
+}
+`;
+
+exports[`Basic Folder Functions - integration tests Create Folder - 2 (repeat) 1`] = `
+Object {
+  "data": Object {
+    "addFolder": Object {
+      "title": "99998",
+    },
+  },
+}
+`;
