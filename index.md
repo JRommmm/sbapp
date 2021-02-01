@@ -2,15 +2,15 @@
 
 Savebase is still a work in progress. It will be deployed soon!
 
-To run the dev version of Savebase:
+To run the latest dev version of Savebase:
 
-1. Navigate to Frontend folder
+1. Navigate to "frontend" folder
 
 ```markdown
 Npm start
 ```
 
-2. Navigate to backend folder
+2. Navigate to "backend" folder
 
 ```markdown
 Npm run dev
