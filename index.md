@@ -1,6 +1,6 @@
 ## Welcome to Savebase
 
-Savebase is still a work in progress. It will be deployed soon!
+Savebase is a work in progress. It will be deployed soon!
 
 To run the latest dev version of Savebase:
 
