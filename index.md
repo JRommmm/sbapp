@@ -1,18 +1,27 @@
-## Welcome to Savebase
+## Savebase
+
+Bookmark application.
 
 Savebase is a work in progress. It will be deployed soon!
 
-To run the latest dev version of Savebase:
+## Technologies
+- React
+- Node.js
+- GraphQL
+- Apollo
+- Mongoose & MongoDB
+
+## Running Application Locally
 
 1. Navigate to "frontend" folder
 
 ```markdown
+//run client
+cd frontend
 Npm start
-```
 
-2. Navigate to "backend" folder
-
-```markdown
+// run server
+cd backend
 Npm run dev
 ```
 
