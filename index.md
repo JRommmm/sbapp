@@ -13,8 +13,6 @@ Savebase is a work in progress. It will be deployed soon!
 
 ## Running Application Locally
 
-1. Navigate to "frontend" folder
-
 ```markdown
 //run client
 cd frontend
